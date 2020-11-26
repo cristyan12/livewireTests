@@ -2,12 +2,15 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Post;
 use Livewire\Component;
 
 class PostComponent extends Component
 {
     public function render()
     {
-        return view('livewire.post-component');
+        $posts = Post::all();
+
+        return view('livewire.post-component', compact('posts'));
     }
 }

@@ -13,11 +13,28 @@ class PostComponent extends Component
 
     protected string $paginationTheme = 'bootstrap';
 
+    public string $view = 'create';
+    public string $title = '';
+    public string $body = '';
+
     public function render(): View
     {
         $posts = Post::orderByDesc('id')->paginate(7);
 
         return view('livewire.post-component', compact('posts'));
+    }
+
+    public function store()
+    {
+        $this->validate([
+            'title' => 'required',
+            'body' => 'required',
+        ]);
+
+        Post::create([
+            'title' => $this->title,
+            'body' => $this->body,
+        ]);
     }
 
     public function destroy(mixed $id): void

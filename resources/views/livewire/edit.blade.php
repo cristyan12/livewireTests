@@ -2,7 +2,7 @@
 
 @include('livewire.form')
 
-<button wire:click="default" class="btn btn-primary">
+<button wire:click="update" class="btn btn-primary">
     Actualizar
 </button>
 

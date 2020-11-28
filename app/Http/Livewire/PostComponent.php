@@ -13,6 +13,8 @@ class PostComponent extends Component
 
     protected string $paginationTheme = 'bootstrap';
 
+    public int $post_id = 0;
+
     public string $view = 'create';
     public string $title = '';
     public string $body = '';
@@ -40,15 +42,32 @@ class PostComponent extends Component
     {
         $post = Post::find($id);
 
+        $this->post_id = $post->id;
         $this->title = $post->title;
         $this->body = $post->body;
 
         $this->view = 'edit';
     }
 
+    public function update()
+    {
+        $data = $this->validate([
+            'title' => 'required',
+            'body' => 'required',
+        ]);
+
+        $post = Post::find($this->post_id);
+
+        $post->update($data);
+
+        $this->default();
+    }
+
     public function destroy(mixed $id): void
     {
         Post::destroy($id);
+
+        $this->default();
     }
 
     public function default(): void

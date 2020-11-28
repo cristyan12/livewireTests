@@ -24,21 +24,37 @@ class PostComponent extends Component
         return view('livewire.post-component', compact('posts'));
     }
 
-    public function store()
+    public function store(): void
     {
-        $this->validate([
+        $data = $this->validate([
             'title' => 'required',
             'body' => 'required',
         ]);
 
-        Post::create([
-            'title' => $this->title,
-            'body' => $this->body,
-        ]);
+        $post = Post::create($data);
+
+        $this->edit($post->id);
+    }
+
+    public function edit(mixed $id): void
+    {
+        $post = Post::find($id);
+
+        $this->title = $post->title;
+        $this->body = $post->body;
+
+        $this->view = 'edit';
     }
 
     public function destroy(mixed $id): void
     {
         Post::destroy($id);
+    }
+
+    public function default(): void
+    {
+        $this->title = '';
+        $this->body = '';
+        $this->view = 'create';
     }
 }

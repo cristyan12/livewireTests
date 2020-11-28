@@ -15,10 +15,14 @@
         <td>{{ $post->title }}</td>
         <td>{{ Str::limit($post->body, 60) }}</td>
         <td>
-            <button class="btn btn-primary">Editar</button>
+            <button wire:click="edit({{ $post->id }})" class="btn btn-primary">
+                Editar
+            </button>
         </td>
         <td>
-            <button wire:click="destroy({{ $post }})" class="btn btn-danger">Eliminar</button>
+            <button wire:click="destroy({{ $post }})" class="btn btn-danger">
+                Eliminar
+            </button>
         </td>
     </tr>
     @endforeach
